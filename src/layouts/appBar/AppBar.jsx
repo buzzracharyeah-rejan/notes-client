@@ -44,6 +44,10 @@ const BrandAppBar = () => {
                 color: '#fff',
                 padding: '1rem',
                 marginRight: 1,
+                ':hover': {
+                  background: '#7CB9E8',
+                  color: '#fff',
+                },
               }}
             >
               <TextSnippetIcon />
@@ -53,7 +57,7 @@ const BrandAppBar = () => {
               component='div'
               sx={{ flexGrow: 1, color: '#505050', fontWeight: 700 }}
             >
-              My Notes
+              NOTES
             </Typography>
           </LogoContainer>
 

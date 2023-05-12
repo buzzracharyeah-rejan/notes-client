@@ -3,6 +3,7 @@ import Signup from '../views/auth/Signup';
 import Signin from '../views/auth/Signin';
 import Dashboard from '../views/dashboard/Dashboard';
 import PageNotFound from '../views/errorPage/404';
+import MockView from '../views/mock/MockView';
 
 const useRoutes = () => {
   const router = createBrowserRouter([
@@ -17,6 +18,10 @@ const useRoutes = () => {
     {
       path: '/signup',
       element: <Signup />,
+    },
+    {
+      path: '/mock',
+      element: <MockView />,
     },
     {
       path: '*',
