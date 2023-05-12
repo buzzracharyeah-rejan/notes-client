@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import { Button, Container, Grid, Paper, TextField, Typography } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
-const AddNotesForm = () => {
+const EditNotesForm = ({ payload }) => {
+  const { id } = useParams();
+  const [initialValues, setInitialValues] = useState({ title: 'test', content: 'content' });
+
+  console.log(id);
+
   return (
     <Container
-      maxWidth='lg'
       sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}
+      maxWidth='lg'
     >
       <Paper sx={{ mt: '1.5rem', p: '1.5rem 2rem' }}>
         <Formik
-          initialValues={{ title: '', content: '' }}
+          initialValues={initialValues}
           validationSchema={yup.object({
             title: yup.string().required().label('Title'),
             content: yup.string().required().label('content'),
@@ -22,6 +28,7 @@ const AddNotesForm = () => {
               setSubmitting(false);
             }, 400);
           }}
+          enableReinitialize
         >
           {({
             values,
@@ -42,13 +49,8 @@ const AddNotesForm = () => {
                   mb: '1.5rem',
                 }}
               >
-                <Typography
-                  variant='h6'
-                  textAlign='center'
-                  letterSpacing={1.5}
-                  sx={{ width: 'inherit' }}
-                >
-                  Create BucketList
+                <Typography variant='h6' textAlign='center' width='inherit' letterSpacing={1.5}>
+                  Edit BucketList
                 </Typography>
                 <Grid item xs={12}>
                   <TextField
@@ -78,7 +80,7 @@ const AddNotesForm = () => {
                   />
                 </Grid>
               </Grid>
-              <Button type='submit' disabled={isSubmitting} variant='contained' color='primary'>
+              <Button type='submit' disabled={isSubmitting} variant='outlined' color='primary'>
                 Submit
               </Button>
             </form>
@@ -89,4 +91,4 @@ const AddNotesForm = () => {
   );
 };
 
-export default AddNotesForm;
+export default EditNotesForm;

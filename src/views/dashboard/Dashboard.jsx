@@ -18,9 +18,6 @@ const Dashboard = () => {
     dispatch(getProductsList());
   }, []);
 
-  useEffect(() => {
-    console.log(data, isLoading, error);
-  }, [data]);
   return (
     <>
       <CustomModal>

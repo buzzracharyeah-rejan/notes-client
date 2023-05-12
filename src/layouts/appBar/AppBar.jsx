@@ -10,17 +10,18 @@ import {
   Menu,
   MenuItem,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import Search from '../../components/search/Search';
 import CustomButton from '../../components/button/CustomButton';
 import { LogoContainer, ItemsContainer, ActionsContainer } from './appbar.styles';
 
 import { settings } from '../../constants';
-import { ModalContext } from '../../contexts/ModalContext';
 
 const BrandAppBar = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const { handleModalOpen } = useContext(ModalContext);
+  const navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -68,7 +69,10 @@ const BrandAppBar = () => {
             {/* user actions */}
             <ActionsContainer>
               <Search />
-              <CustomButton label='Take Notes' onClickHandler={handleModalOpen} />
+              <CustomButton
+                label='Take Notes'
+                onClickHandler={() => navigate('/notes/add', { replace: false })}
+              />
             </ActionsContainer>
 
             {/* Profile */}

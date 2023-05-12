@@ -17,8 +17,10 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { cardSettings, settings } from '../../constants';
 import { MENU_SETTING } from '../../constants/enum';
 import useAlertDialog from '../../hooks/useAlertDialog';
+import { useNavigate } from 'react-router-dom';
 
 const UserStories = ({ dimensions, payload }) => {
+  const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState(null);
   const { getConfirmation } = useAlertDialog();
 
@@ -49,7 +51,7 @@ const UserStories = ({ dimensions, payload }) => {
     const { menuType } = event.currentTarget.dataset;
     switch (menuType) {
       case MENU_SETTING.edit:
-        console.log('open edit dialog');
+        navigate(`/notes/edit/${payload.id}`);
         break;
 
       case MENU_SETTING.delete:
