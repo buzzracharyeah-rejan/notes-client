@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Container, Grid, Pagination, Paper, Box } from '@mui/material';
 
 import UserStories from '../../components/card/Card';
