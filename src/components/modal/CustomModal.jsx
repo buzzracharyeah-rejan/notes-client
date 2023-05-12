@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { Backdrop, Box, Modal, Fade, Button, Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeModal, openModal } from '../../store/slices/modalSlice';
 
-const CustomModal = () => {
-  const [open, setOpen] = useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+const CustomModal = ({ children }) => {
+  const { isOpen } = useSelector((state) => state.modal);
+  const dispatch = useDispatch();
+  const handleClose = () => dispatch(closeModal());
 
   return (
     <Modal
       aria-labelledby='transition-modal-title'
       aria-describedby='transition-modal-description'
-      open={open}
+      open={isOpen}
       onClose={handleClose}
       closeAfterTransition
       slots={{ backdrop: Backdrop }}
@@ -20,25 +22,22 @@ const CustomModal = () => {
         },
       }}
     >
-      <Fade in={open}>
+      <Fade in={isOpen}>
         <Box
           sx={{
             position: 'absolute',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 400,
+            width: 600,
+            height: 800,
+            borderRadius: '0.6rem',
             bgcolor: 'background.paper',
             boxShadow: 24,
             p: 4,
           }}
         >
-          <Typography id='transition-modal-title' variant='h6' component='h2'>
-            Text in a modal
-          </Typography>
-          <Typography id='transition-modal-description' sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          {children}
         </Box>
       </Fade>
     </Modal>

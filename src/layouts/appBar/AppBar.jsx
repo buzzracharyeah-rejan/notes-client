@@ -16,8 +16,11 @@ import CustomButton from '../../components/button/CustomButton';
 import { LogoContainer, ItemsContainer, ActionsContainer } from './appbar.styles';
 
 import { settings } from '../../constants';
+import { useDispatch } from 'react-redux';
+import { openModal } from '../../store/slices/modalSlice';
 
 const BrandAppBar = () => {
+  const dispatch = useDispatch();
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenUserMenu = (event) => {
@@ -26,6 +29,11 @@ const BrandAppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleModalOpen = () => {
+    console.log('modal open');
+    dispatch(openModal());
   };
 
   return (
@@ -53,11 +61,12 @@ const BrandAppBar = () => {
               <TextSnippetIcon />
             </IconButton>
             <Typography
-              variant='h6'
+              variant='h5'
               component='div'
-              sx={{ flexGrow: 1, color: '#505050', fontWeight: 700 }}
+              letterSpacing={4}
+              sx={{ color: '#505050', fontWeight: 700 }}
             >
-              NOTES
+              BUCKETS
             </Typography>
           </LogoContainer>
 
@@ -65,7 +74,7 @@ const BrandAppBar = () => {
             {/* user actions */}
             <ActionsContainer>
               <Search />
-              <CustomButton label='Take Notes' />
+              <CustomButton label='Take Notes' onClickHandler={handleModalOpen} />
             </ActionsContainer>
 
             {/* Profile */}

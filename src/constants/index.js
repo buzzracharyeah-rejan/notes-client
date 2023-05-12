@@ -10,7 +10,7 @@ export const notes = [
       'https://media.istockphoto.com/id/185313478/photo/cmyk-color-guide-and-lorem-ipsum-text.jpg?s=612x612&w=0&k=20&c=llnNEei8KmQBbZkXJYEOl2wdHMs3d9vly7gp9oN4jJk=',
   },
   {
-    id: 1,
+    id: 2,
     title: 'test title',
     content:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled',
@@ -18,7 +18,7 @@ export const notes = [
       'https://media.istockphoto.com/id/185313478/photo/cmyk-color-guide-and-lorem-ipsum-text.jpg?s=612x612&w=0&k=20&c=llnNEei8KmQBbZkXJYEOl2wdHMs3d9vly7gp9oN4jJk=',
   },
   {
-    id: 1,
+    id: 4,
     title: 'test title',
     content:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled',
@@ -26,7 +26,7 @@ export const notes = [
       'https://media.istockphoto.com/id/185313478/photo/cmyk-color-guide-and-lorem-ipsum-text.jpg?s=612x612&w=0&k=20&c=llnNEei8KmQBbZkXJYEOl2wdHMs3d9vly7gp9oN4jJk=',
   },
   {
-    id: 1,
+    id: 5,
     title: 'test title',
     content:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled',
@@ -34,7 +34,7 @@ export const notes = [
       'https://media.istockphoto.com/id/185313478/photo/cmyk-color-guide-and-lorem-ipsum-text.jpg?s=612x612&w=0&k=20&c=llnNEei8KmQBbZkXJYEOl2wdHMs3d9vly7gp9oN4jJk=',
   },
   {
-    id: 1,
+    id: 6,
     title: 'test title',
     content:
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled',

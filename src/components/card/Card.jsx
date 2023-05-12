@@ -4,7 +4,6 @@ import {
   CardHeader,
   CardMedia,
   CardContent,
-  CardActions,
   Avatar,
   IconButton,
   Typography,
@@ -13,14 +12,15 @@ import {
 } from '@mui/material';
 
 import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import { cardSettings } from '../../constants';
+import { cardSettings, settings } from '../../constants';
+import { MENU_SETTING } from '../../constants/enum';
+import useAlertDialog from '../../hooks/useAlertDialog';
 
-const UserStories = ({ width, title, content, imageUrl }) => {
+const UserStories = ({ dimensions, payload }) => {
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const { getConfirmation } = useAlertDialog();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -30,8 +30,37 @@ const UserStories = ({ width, title, content, imageUrl }) => {
     setAnchorElUser(null);
   };
 
+  const handleDelete = async () => {
+    const isConfirm = await getConfirmation({
+      title: 'Delete User',
+      message: 'Are you sure you want to delete the note ?',
+    });
+
+    if (isConfirm) {
+      try {
+        console.log('delete confirm');
+      } catch (err) {
+        // handleOpenSnackbar({ message: err.message, alertType: 'error' });
+      }
+    }
+  };
+
+  const handleMenuItemClick = (event) => {
+    const { menuType } = event.currentTarget.dataset;
+    switch (menuType) {
+      case MENU_SETTING.edit:
+        console.log('open edit dialog');
+        break;
+
+      case MENU_SETTING.delete:
+        handleDelete();
+        break;
+    }
+    handleCloseUserMenu();
+  };
+
   return (
-    <Card sx={{ maxWidth: width }}>
+    <Card sx={{ maxWidth: dimensions.width }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label='recipe'>
@@ -43,7 +72,7 @@ const UserStories = ({ width, title, content, imageUrl }) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={title}
+        title={payload.title}
         subheader='September 14, 2016'
       />
       <Menu
@@ -63,15 +92,15 @@ const UserStories = ({ width, title, content, imageUrl }) => {
         onClose={handleCloseUserMenu}
       >
         {cardSettings.map((setting) => (
-          <MenuItem key={setting} onClick={handleCloseUserMenu}>
+          <MenuItem key={setting} onClick={handleMenuItemClick} data-menu-type={setting}>
             <Typography textAlign='center'>{setting}</Typography>
           </MenuItem>
         ))}
       </Menu>
-      <CardMedia component='img' height='194' image={imageUrl} alt='Paella dish' />
+      <CardMedia component='img' height='194' image={payload.imageUrl} alt='Paella dish' />
       <CardContent>
         <Typography variant='body2' color='text.secondary'>
-          {content}
+          {payload.content}
         </Typography>
       </CardContent>
     </Card>

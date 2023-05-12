@@ -1,9 +1,13 @@
-import { RouterProvider } from 'react-router-dom';
-import useRoutes from './routes/useRoutes';
+import AlertDialog from './components/alertDialog/AlertDialog';
+import RouterProvider from './components/RouterProvider.jsx';
 
 const App = () => {
-  const { router } = useRoutes();
-  return;
+  return (
+    <>
+      <AlertDialog />
+      <RouterProvider />
+    </>
+  );
 };
 
 export default App;
