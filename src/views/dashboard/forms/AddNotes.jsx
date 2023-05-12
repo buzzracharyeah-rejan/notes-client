@@ -2,8 +2,13 @@ import React from 'react';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import { Button, Container, Grid, Paper, TextField, Typography } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { createNote } from '../../../store/actions/notesActions';
+import { useNavigate } from 'react-router-dom';
 
 const AddNotesForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <Container
       maxWidth='lg'
@@ -17,10 +22,17 @@ const AddNotesForm = () => {
             content: yup.string().required().label('content'),
           })}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+            dispatch(
+              createNote({
+                title: values.title,
+                body: values.content,
+                image_url:
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3x7ipPBVvSRr4gpjgxh0yKC64dOjsxTa_WUQZIS4gbw&s',
+                author: '645ccb3eb4eac795a2270e62',
+              })
+            );
+            navigate('/', { replace: true });
+            setSubmitting(false);
           }}
         >
           {({

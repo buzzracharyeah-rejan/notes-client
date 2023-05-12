@@ -18,10 +18,13 @@ import { cardSettings, settings } from '../../constants';
 import { MENU_SETTING } from '../../constants/enum';
 import useAlertDialog from '../../hooks/useAlertDialog';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { deleteNote } from '../../store/actions/notesActions';
 
 const UserStories = ({ dimensions, payload }) => {
-  const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { getConfirmation } = useAlertDialog();
 
   const handleOpenUserMenu = (event) => {
@@ -40,7 +43,7 @@ const UserStories = ({ dimensions, payload }) => {
 
     if (isConfirm) {
       try {
-        console.log('delete confirm');
+        dispatch(deleteNote(payload._id));
       } catch (err) {
         // handleOpenSnackbar({ message: err.message, alertType: 'error' });
       }
@@ -99,7 +102,7 @@ const UserStories = ({ dimensions, payload }) => {
           </MenuItem>
         ))}
       </Menu>
-      <CardMedia component='img' height='194' image={payload.imageUrl} alt='Paella dish' />
+      <CardMedia component='img' height='194' image={payload.image_url} alt='Paella dish' />
       <CardContent>
         <Typography variant='body2' color='text.secondary'>
           {payload.content}
