@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Backdrop, Box, Modal, Fade, Button, Typography } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { closeModal, openModal } from '../../store/slices/modalSlice';
+import { ModalContext } from '../../contexts/ModalContext';
 
 const CustomModal = ({ children }) => {
-  const { isOpen } = useSelector((state) => state.modal);
-  const dispatch = useDispatch();
-  const handleClose = () => dispatch(closeModal());
+  const { modal, handleModalClose } = useContext(ModalContext);
 
   return (
     <Modal
       aria-labelledby='transition-modal-title'
       aria-describedby='transition-modal-description'
-      open={isOpen}
-      onClose={handleClose}
+      open={modal.open}
+      onClose={handleModalClose}
       closeAfterTransition
       slots={{ backdrop: Backdrop }}
       slotProps={{
@@ -22,7 +19,7 @@ const CustomModal = ({ children }) => {
         },
       }}
     >
-      <Fade in={isOpen}>
+      <Fade in={modal.open}>
         <Box
           sx={{
             position: 'absolute',

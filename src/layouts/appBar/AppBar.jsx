@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -16,12 +16,11 @@ import CustomButton from '../../components/button/CustomButton';
 import { LogoContainer, ItemsContainer, ActionsContainer } from './appbar.styles';
 
 import { settings } from '../../constants';
-import { useDispatch } from 'react-redux';
-import { openModal } from '../../store/slices/modalSlice';
+import { ModalContext } from '../../contexts/ModalContext';
 
 const BrandAppBar = () => {
-  const dispatch = useDispatch();
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const { handleModalOpen } = useContext(ModalContext);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -29,11 +28,6 @@ const BrandAppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-  };
-
-  const handleModalOpen = () => {
-    console.log('modal open');
-    dispatch(openModal());
   };
 
   return (
