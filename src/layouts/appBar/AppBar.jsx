@@ -18,6 +18,8 @@ import CustomButton from '../../components/button/CustomButton';
 import { LogoContainer, ItemsContainer, ActionsContainer } from './appbar.styles';
 
 import { settings } from '../../constants';
+import { SETTING } from '../../constants/enum';
+import jwtToken from '../../services/jwt';
 
 const BrandAppBar = () => {
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -29,6 +31,21 @@ const BrandAppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleMenuItemClick = (event) => {
+    const { menuType } = event.currentTarget.dataset;
+    switch (menuType) {
+      case SETTING.logout:
+        jwtToken.destroyToken('access_tkn');
+        jwtToken.destroyToken('refresh_tkn');
+        navigate('/login');
+        break;
+
+      default:
+        handleCloseUserMenu();
+        break;
+    }
   };
 
   return (
@@ -99,7 +116,7 @@ const BrandAppBar = () => {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <MenuItem key={setting} onClick={handleMenuItemClick} data-menu-type={setting}>
                     <Typography textAlign='center'>{setting}</Typography>
                   </MenuItem>
                 ))}
