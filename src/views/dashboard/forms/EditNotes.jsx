@@ -96,8 +96,7 @@ const EditNotesForm = () => {
                     name='content'
                     label='Content'
                     value={values.content}
-                    rows={4}
-                    maxRows={6}
+                    rows={6}
                     multiline
                     onChange={handleChange}
                     onBlur={handleBlur}
