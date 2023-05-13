@@ -56,14 +56,16 @@ const Signup = () => {
               email: yup.string().email().required().label('Email').lowercase(),
               password: yup.string().required().label('Password'),
             })}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={async (values, { setSubmitting }) => {
               try {
-                apiService.post('/auth/signup', {
+                const response = await apiService.post('/auth/signup', {
                   username: `${values.firstName} ${values.lastName}`,
                   email: values.email,
                   password: values.password,
                 });
-                navigate('/login');
+                if (response.status === 201) {
+                  navigate('/login');
+                }
               } catch (error) {
                 alert('Failed to signup!');
               }

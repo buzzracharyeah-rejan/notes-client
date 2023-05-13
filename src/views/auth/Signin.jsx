@@ -55,14 +55,18 @@ const Signin = () => {
           })}
           onSubmit={async (values, { setSubmitting }) => {
             try {
-              const { data: response } = await apiService.post('/auth/login', {
+              const response = await apiService.post('/auth/login', {
                 email: values.email,
                 password: values.password,
               });
-              jwtToken.saveToken(response.data.token.access.token, 'access_tkn');
-              jwtToken.saveToken(response.data.token.refresh.token, 'refresh_tkn');
-              setSubmitting(false);
-              navigate('/');
+              console.log(response);
+              if (response.status === 200) {
+                const { token } = response.data.data;
+                jwtToken.saveToken(token.access.token, 'access_tkn');
+                jwtToken.saveToken(token.refresh.token, 'refresh_tkn');
+                setSubmitting(false);
+                navigate('/');
+              }
             } catch (error) {
               alert('Failed to login!');
             }
