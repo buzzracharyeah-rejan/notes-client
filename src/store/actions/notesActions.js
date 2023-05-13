@@ -22,9 +22,9 @@ export const deleteNote = createAsyncThunk('/deleteNote', async (id) => {
   }
 });
 
-export const updateNote = createAsyncThunk('/updateNote', async (id) => {
+export const updateNote = createAsyncThunk('/updateNote', async ({ targetId, payload }) => {
   try {
-    const { data } = await apiService.post(`/notes/update/${id}`);
+    const { data } = await apiService.post(`/notes/update/${targetId}`, payload);
     if (data.status === 'success') {
       const { data } = await apiService.get(`/notes`);
       return data;

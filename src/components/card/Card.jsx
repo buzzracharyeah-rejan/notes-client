@@ -54,7 +54,7 @@ const UserStories = ({ dimensions, payload }) => {
     const { menuType } = event.currentTarget.dataset;
     switch (menuType) {
       case MENU_SETTING.edit:
-        navigate(`/notes/edit/${payload.id}`);
+        navigate(`/notes/edit/${payload._id}`);
         break;
 
       case MENU_SETTING.delete:
@@ -105,7 +105,7 @@ const UserStories = ({ dimensions, payload }) => {
       <CardMedia component='img' height='194' image={payload.image_url} alt='Paella dish' />
       <CardContent>
         <Typography variant='body2' color='text.secondary'>
-          {payload.content}
+          {payload.body}
         </Typography>
       </CardContent>
     </Card>

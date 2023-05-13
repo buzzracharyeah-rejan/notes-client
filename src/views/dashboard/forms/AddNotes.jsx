@@ -82,7 +82,9 @@ const AddNotesForm = () => {
                     name='content'
                     label='Content'
                     value={values.content}
-                    maxRows={4}
+                    rows={4}
+                    maxRows={6}
+                    multiline
                     onChange={handleChange}
                     onBlur={handleBlur}
                     error={touched.content && Boolean(errors.content)}

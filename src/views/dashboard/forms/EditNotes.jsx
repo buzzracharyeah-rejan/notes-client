@@ -1,14 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { Formik } from 'formik';
 import { Button, Container, Grid, Paper, TextField, Typography } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import apiService from '../../../services/api';
+import { useDispatch } from 'react-redux';
+import { updateNote } from '../../../store/actions/notesActions';
 
-const EditNotesForm = ({ payload }) => {
+const EditNotesForm = () => {
   const { id } = useParams();
-  const [initialValues, setInitialValues] = useState({ title: 'test', content: 'content' });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [initialValues, setInitialValues] = useState({ title: '', content: '' });
 
-  console.log(id);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await apiService.get(`/notes/${id}`);
+      if (response.status === 200) {
+        const { title, body } = response.data.data;
+        setInitialValues({ title, content: body });
+      }
+    }
+    fetchData();
+  }, [id]);
 
   return (
     <Container
@@ -23,10 +37,20 @@ const EditNotesForm = ({ payload }) => {
             content: yup.string().required().label('content'),
           })}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+            dispatch(
+              updateNote({
+                targetId: id,
+                payload: {
+                  title: values.title,
+                  body: values.content,
+                  image_url:
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3x7ipPBVvSRr4gpjgxh0yKC64dOjsxTa_WUQZIS4gbw&s',
+                  author: '645ccb3eb4eac795a2270e62',
+                },
+              })
+            );
+            navigate('/');
+            setSubmitting(false);
           }}
           enableReinitialize
         >
@@ -72,7 +96,9 @@ const EditNotesForm = ({ payload }) => {
                     name='content'
                     label='Content'
                     value={values.content}
-                    maxRows={4}
+                    rows={4}
+                    maxRows={6}
+                    multiline
                     onChange={handleChange}
                     onBlur={handleBlur}
                     error={touched.content && Boolean(errors.content)}
